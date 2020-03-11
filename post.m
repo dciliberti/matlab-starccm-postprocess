@@ -95,6 +95,8 @@ for i = 1:length(array)
     dos(star);
 end
 
+movefile('*_report.csv',filePath);
+
 %% Visualizzazione risultati
 
 % Get variables name and number from the first file of the list
