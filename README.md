@@ -1,8 +1,6 @@
 # MATLAB post processing
 MATLAB calls STAR-CCM+ in batch to get and plot reports (e.g. aero forces and coefficients) vs a sweep variable (e.g. angle of attack) from a list of sim files.
 
-**WARNING** This repository must be kept private since it contains the Siemens POD license string (UniNa) inside the main file.
-
 ## Detailed description
 Calls STAR-CCM+ in batch with a macro to get and plot the desired reports
 versus an independent variable. Useful to list and plot data from a
