@@ -30,6 +30,12 @@
 
 close all; clearvars; clc
 
+% Write here your PoD key
+pod = '2jHU+QkwqexqrAOdVZ6ZzQ';
+
+%% Initialization
+% From now on, the script is interactive.
+
 % Ask user which file consider
 [fileName, filePath] = uigetfile('.sim',...
     'Select any sim file of interest so that MATLAB can guess the ''prefix''');
@@ -86,8 +92,7 @@ for i = indx
 end
 array = sort(array);
 
-%% chiamata STAR-CCM+
-pod = '2jHU+QkwqexqrAOdVZ6ZzQ';
+%% Call STAR-CCM+
 disp('Report generation...')
 for i = 1:length(array)
     fileName = [filePath,prefix,num2str(array(i),formatString)];
@@ -97,7 +102,7 @@ end
 
 movefile('*_report.csv',filePath);
 
-%% Visualizzazione risultati
+%% Visualize results
 
 % Get variables name and number from the first file of the list
 csvName = [filePath,prefix,num2str(array(1),formatString),'_report.csv'];
@@ -145,13 +150,6 @@ for i = 1:size(var,2)
     ylabel(aero.Row{indx(i)},'Interpreter','none')
 end
 
-% pause
-%% Funzionalità addizionali
-% disp('Blade load calculation...')
-% for i = 1:length(J)
-%     filename = [prefix,num2str(J(i),'%2.1f')];
-%     star = ['starccm+.exe ', filename, '.sim -batch "PropLoadBatch.java" -power -podkey ', pod, ' -licpath 1999@flex.cd-adapco.com'];
-%     dos(star);
-% end
+% Here you can write additional features (e.g. aerodynamic loads)
 
 disp('END')
