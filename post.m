@@ -96,11 +96,14 @@ array = sort(array);
 disp('Report generation...')
 for i = 1:length(array)
     fileName = [filePath,prefix,num2str(array(i),formatString)];
-    star = ['starccm+.exe ', fileName, '.sim -batch "Report_to_csv.java" -power -podkey ', pod, ' -licpath 1999@flex.cd-adapco.com'];
+    star = ['starccm+.exe "', fileName, '.sim" -batch "Report_to_csv.java" -power -podkey ', pod, ' -licpath 1999@flex.cd-adapco.com'];
     dos(star);
 end
 
-movefile('*_report.csv',filePath);
+% Move csv file into source folder if this script is called from another folder
+if ~strcmp(filePath,[pwd,'\'])
+    movefile('*_report.csv',filePath);
+end
 
 %% Visualize results
 
