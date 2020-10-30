@@ -2,6 +2,9 @@
 % versus an independent variable. Useful to list and plot data from a
 % design sweep like an airfoil investigated at several angles of attack,
 % where each sim file is an angle of attack. Works with Microsoft Windows.
+% The STAR-CCM+ executable starccm+.exe must be in the Windows path. This
+% script is configured to work with Power-on-Demand (PoD) license. The
+% appropriate PoD string must be written by the user in the pod.txt file.
 %
 % It is assumed that the sim file name has the numeric independent variable
 % in the last characters. MATLAB will try to get the 'prefix' of this file
@@ -29,9 +32,6 @@
 % selection (e.g. non-contiguous angles of attack) is also permitted.
 
 close all; clearvars; clc
-
-% Write here your PoD key
-pod = '2jHU+QkwqexqrAOdVZ6ZzQ';
 
 %% Initialization
 % From now on, the script is interactive.
@@ -93,6 +93,12 @@ end
 array = sort(array);
 
 %% Call STAR-CCM+
+
+% Read PoD license from external file
+fileID = fopen('pod.txt');
+pod = fscanf(fileID,'%s');
+fclose(fileID);
+
 disp('Report generation...')
 for i = 1:length(array)
     fileName = [filePath,prefix,num2str(array(i),formatString)];
