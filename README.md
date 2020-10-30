@@ -6,6 +6,7 @@ Calls STAR-CCM+ in batch with a macro to get and plot the desired reports
 versus an independent variable. Useful to list and plot data from a
 design sweep like an airfoil investigated at several angles of attack,
 where each sim file is an angle of attack. Works with Microsoft Windows.
+The STAR-CCM+ executable `starccm+.exe` must be in the Windows path.
 
 It is assumed that the sim file name has the numeric independent variable
 in the last characters. MATLAB will try to get the 'prefix' of this file
@@ -28,8 +29,7 @@ extract all the reports with the JAVA macro `Report_to_csv.java`. The sim
 files are all those with the same prefix previously defined, in the
 folder initially selected, so that it should be easy to get the files of
 interest even if the folder is populated with many and different file
-types.
+types. Sparse selection (e.g. non-contiguous angles of attack) is also permitted.
 
 Finally, the script asks the user which report to plot versus the
-independent variable, from a list of all extracted reports. Sparse
-selection (e.g. non-contiguous angles of attack) is also permitted.
+independent variable, from a list of all extracted reports.
