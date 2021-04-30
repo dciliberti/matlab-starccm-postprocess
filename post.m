@@ -158,7 +158,32 @@ for i = 1:size(var,2)
     xlabel(indVar,'Interpreter','none')
     ylabel(aero.Row{indx(i)},'Interpreter','none')
 end
+drawnow
 
-% Here you can write additional features (e.g. aerodynamic loads)
+%% Batch aerodynamic loads calculation
+disp('Aerodynamic loads extraction...')
+
+for i = 1:length(array)
+    
+    % write angle of attack into file
+    fileID = fopen('aoa','w');
+    fprintf(fileID, '%.1f\n', array(i));
+    fclose(fileID);
+    
+    fileName = [filePath,prefix,num2str(array(i),formatString)];
+    star = ['starccm+.exe "', fileName, '.sim" -batch "WingLoadBatch.java" -power -podkey ', pod, ' -licpath 1999@flex.cd-adapco.com'];
+    dos(star);
+    
+    aero = readmatrix([prefix,num2str(array(i),formatString),'_loads.csv']);
+    ClDist(:,i) = aero(:,end); %#ok<*SAGROW>
+    cClDist(:,i) = aero(:,end-1);
+end
+movefile('*.csv',filePath)
+
+disp('Cl distribution vs y/(b/2)')
+disp([aero(:,2),ClDist])
+
+disp('cCl distribution vs y/(b/2)')
+disp([aero(:,2),cClDist])
 
 disp('END')
